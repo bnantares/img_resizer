@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+main page
+{% endblock title %}
+
+{% block content %}
+<h1>Список изображений</h1>
+{% if not pictures %}
+<p>Нет доступных изображений</p>
+{% endif %}
+{% for picture in pictures %}
+{% if picture.picture_url %}
+    <a href="{% url 'resize' picture.slug %}">{{ picture.picture_url|cut:"https://sun"|truncatechars:20 }}.jpg</a>
+    <br>
+{% else %}
+    <a href="{% url 'resize' picture.slug %}">{{ picture.img.url|cut:"/media/images/" }}</a>
+    <br>
+{% endif %}
+{% endfor %}
+<br>
+<a href="upload/">Добавить изображение</a>
+{% endblock content %}
